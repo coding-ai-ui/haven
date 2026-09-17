@@ -38,20 +38,16 @@ urlpatterns = [
     path("api/admin/overview/", views.admin_overview),
     path("api/admin/verification/<int:pk>/<str:field>/", views.private_document),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += [
-        re_path(
-            r"^assets/(?P<path>.*)$",
-            serve,
-            {
-                "document_root": settings.BASE_DIR.parent
-                / "frontend"
-                / "dist"
-                / "assets"
-            },
-        )
-    ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [
+    re_path(
+        r"^assets/(?P<path>.*)$",
+        serve,
+        {
+            "document_root": settings.BASE_DIR.parent / "frontend" / "dist" / "assets"
+        },
+    )
+]
 urlpatterns += [
     re_path(
         r"^(?!api/|admin/|media/|static/|private_documents/|assets/).*$",

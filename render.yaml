@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: haven
+    runtime: python
+    buildCommand: >-
+      pip install -r backend/requirements.txt &&
+      npm ci --prefix frontend &&
+      npm run build --prefix frontend &&
+      python backend/manage.py collectstatic --noinput &&
+      python backend/manage.py migrate
+    startCommand: cd backend && waitress-serve --listen=*:10000 config.wsgi:application
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "0"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        value: "*"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: haven-db
+          property: connectionString
+    plan: free
+    healthCheckPath: /api/
+
+databases:
+  - name: haven-db
+    plan: free
