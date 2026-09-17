@@ -1,0 +1,4 @@
+Django>=5.2.12,<5.3
+djangorestframework>=3.16,<3.17
+Pillow>=12.1,<13
+waitress>=3.0.2,<4

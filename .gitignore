@@ -1,0 +1,11 @@
+backend/.venv/
+backend/db.sqlite3*
+backend/.development-key
+backend/media/
+backend/private_documents/
+backend/staticfiles/
+**/__pycache__/
+frontend/node_modules/
+frontend/dist/
+.env
+*.log
